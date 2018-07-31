@@ -23,9 +23,15 @@ public class MessageController {
     }
 
     @GetMapping("/message")
-    public void message(@RequestParam("content") String message){
+    public String message(@RequestParam("content") String message){
 
         Log.info("Starts message : {} ", message);
-        transactionService.sendTextMessage(message);
+        try {
+            transactionService.sendTextMessage(message);
+            return "MESSAGE SENT SUCCESSFULLY";
+        }catch(Exception ex){
+            LOG.info("Exception occurred:",ex);
+            return "MESSAGE FAILED TO SENT";
+        }
     }
 }

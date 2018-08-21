@@ -1,0 +1,13 @@
+Kafka Installation
+
+Start zookeeper:
+.\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
+
+Start Kafka:
+.\bin\windows\kafka-server-start.bat .\config\server.properties
+
+
+.\bin\windows\kafka-console-producer.bat --broker-list localhost:9092 --topic techforum-topic
+.\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic techforum-topic --from-beginning
+
+https://dzone.com/articles/running-apache-kafka-on-windows-os

@@ -2,7 +2,6 @@ package com.techforum.pubsub.kafka.config;
 
 import org.springframework.cloud.stream.annotation.EnableBinding;
 
-@EnableBinding(TechforumStream.class)
+@EnableBinding(TechStream.class)
 public class StreamsConfig {
-
 }

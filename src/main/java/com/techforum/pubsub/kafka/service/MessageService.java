@@ -1,6 +1,6 @@
 //package com.techforum.pubsub.kafka.service;
 //
-//import com.techforum.pubsub.kafka.config.TechforumStream;
+//import com.techforum.pubsub.kafka.config.TechStream;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.messaging.MessageChannel;
 //import org.springframework.messaging.MessageHeaders;
@@ -11,10 +11,10 @@
 //@Service
 //public class MessageService {
 //
-//    private final TechforumStream techforumStream;
+//    private final TechStream techforumStream;
 //
 //    @Autowired
-//    public MessageService(TechforumStream techforumStream) {
+//    public MessageService(TechStream techforumStream) {
 //        this.techforumStream = techforumStream;
 //    }
 //

@@ -5,7 +5,7 @@ import org.springframework.cloud.stream.annotation.Output;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.SubscribableChannel;
 
-public interface TechforumStream {
+public interface TechStream {
     String INPUT = "techforum-in";
     String OUTPUT = "techforum-out";
 

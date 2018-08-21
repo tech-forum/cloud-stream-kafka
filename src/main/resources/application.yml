@@ -1,9 +1,15 @@
+server:
+  port: 9090
+
 spring:
   kafka:
     consumer:
       properties:
         group.id: techforum-group
         client.id: techforum-client
+        auto.commit.interval.ms: 5000
+        auto.offset.reset: latest
+
   cloud:
     stream:
       kafka:
@@ -14,13 +20,14 @@ spring:
           destination: techforum-topic
           contentType: application/json
           startOffset: latest
+          group: techforum-group
+          client: techforum-client
           autoCommitOffset: false
           ackEachRecord: false
-          group: techforum-group
-          client: techforum-client
-        techforum-out:
-          destination: techforum-topic
-          contentType: application/json
-          #autoCommitOffset: false
-          group: techforum-group
-          client: techforum-client
+
+#        techforum-out:
+#          destination: techforum-topic
+#          contentType: application/json
+#          #autoCommitOffset: false
+#          group: techforum-group
+#          client: techforum-client

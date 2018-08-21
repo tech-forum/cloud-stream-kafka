@@ -21,9 +21,8 @@ public class MessageService {
     public void sendTextMessage(final String message) {
         System.out.println("Sending greetings {}"+ message);
         MessageChannel messageChannel = techforumStream.outboundMessages();
-        messageChannel.send(MessageBuilder
-                .withPayload(message)
-                .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
-                .build());
+        messageChannel.send(MessageBuilder.withPayload(message)
+                                          .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
+                                          .build());
     }
 }

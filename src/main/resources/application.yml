@@ -1,33 +1,34 @@
-server:
-  port: 9091
-
+server.port: 9091
 spring:
   kafka:
     consumer:
       properties:
-        group.id: techforum-group
-        client.id: techforum-client
-        auto.commit.interval.ms: 5000
-        auto.offset.reset: latest
+        isolation.level: read_committed
+        max.poll.records: 100
+        enable.auto.commit: false
 
   cloud:
     stream:
+      default-binder: kafka
       kafka:
         binder:
           brokers: localhost:9092
+          reset-offsets: true
+          start-offset: latest
+        bindings:
+          techforum-in:
+             consumer:
+                autoCommitOffset: false
       bindings:
         techforum-in:
           destination: techforum-topic
           contentType: application/json
-          startOffset: latest
-          group: techforum-group
-          client: techforum-client
+          group: techforum-group-two
+          client: techforum-client-two
           autoCommitOffset: false
-          ackEachRecord: false
-
-#        techforum-out:
-#          destination: techforum-topic
-#          contentType: application/json
-#          #autoCommitOffset: false
-#          group: techforum-group
-#          client: techforum-client
+        techforum-out:
+          destination: techforum-topic
+          contentType: application/json
+          group: techforum-group-two
+          client: techforum-client-two
+          autoCommitOffset: false

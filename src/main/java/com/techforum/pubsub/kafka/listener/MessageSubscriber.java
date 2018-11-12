@@ -10,31 +10,42 @@ import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 @Component
 @EnableAutoConfiguration
 public class MessageSubscriber {
     Logger LOG = LoggerFactory.getLogger(MessageSubscriber.class);
-
+    private LocalDateTime startTime;
     @StreamListener(TechStream.INPUT)
-    public void onMessage(Message<?> message) {
-        LOG.info("payload : {}", message);
-        Acknowledgment acknowledgment = message.getHeaders().get(KafkaHeaders.ACKNOWLEDGMENT, Acknowledgment.class);
+    public void onMessage(Message<?> message) throws InterruptedException {
+        String payload = new String((byte[]) message.getPayload());
+        //Thread.sleep(3000);
+        if(payload.equals("PERFDATA0") || startTime == null) {
+            startTime = LocalDateTime.now();
+            LOG.info("Processing started >> " + startTime);
+        }
+        LOG.info("payload : {}", payload);
+         Acknowledgment acknowledgment = message.getHeaders().get(KafkaHeaders.ACKNOWLEDGMENT, Acknowledgment.class);
 
         if (acknowledgment != null && !isFailed(message)) {
             LOG.info("Acknowledgment provided");
             acknowledgment.acknowledge();
         }/*else {
-            throw new RuntimeException("Dont acknowlede");
+            throw new RuntimeException("Don't acknowledge");
         }*/
+        LocalDateTime endTime = LocalDateTime.now();
+        LOG.info("Processing Ended >> StartTime:" + startTime + " EndTime:" + endTime + " Difference >> " + Duration.between(startTime, endTime));
     }
 
     private boolean isFailed(Message message) {
         byte[] payloadByte = (byte[]) message.getPayload();
         String payload = new String(payloadByte);
-
-        if(payload.contains("2") || payload.contains("4")) {
-            return true;
-        }
+//
+//        if(payload.contains("12") || payload.contains("14")) {
+//            return true;
+//        }
         return false;
     }
 }

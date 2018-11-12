@@ -11,3 +11,23 @@ Start Kafka:
 .\bin\windows\kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic techforum-topic --from-beginning
 
 https://dzone.com/articles/running-apache-kafka-on-windows-os
+
+Run performance test
+.\bin\windows\kafka-consumer-perf-test.bat --zookeeper localhost:9092 --messages 100000 --topic techforum-topic --threads 1
+
+list all topics
+.\bin\windows\kafka-topics.bat --zookeeper localhost:2181 --topic techforum-topic --describe
+
+Get lag of each group - group needs to be connected
+.\bin\windows\kafka-consumer-groups.bat --bootstrap-server localhost:9092 --command-config=C:\Users\User\tmp\consumergroup.config --describe --group techforum-group-two
+
+Performance data (with respect to max poll records)
+max poll record | number of messages | response time
+1   |   10,000 | 20.19S
+1   | 1,00,000 | 1M245.7s
+10  |   10,000 | 7.346s
+10  | 1,00,000 | 43.732s
+100 |   10,000 | 5.593s
+100 | 1,00,000 | 36.428s
+500 |   10,000 | 8.839s
+500 | 1,00,000 | 35.822s

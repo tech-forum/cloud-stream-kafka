@@ -18,11 +18,19 @@ public class MessageService {
         this.techforumStream = techforumStream;
     }
 
-    public void sendTextMessage(final String message) {
-        System.out.println("Sending greetings {}"+ message);
-        MessageChannel messageChannel = techforumStream.outboundMessages();
-        messageChannel.send(MessageBuilder.withPayload(message)
-                                          .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
-                                          .build());
+    public void sendTextMessage(final String message, int NoOfMsgs) {
+        System.out.println("Sending greetings :"+ message);
+        int count = 0;
+        while (count < NoOfMsgs) {
+            try {
+                MessageChannel messageChannel = techforumStream.outboundMessages();
+                messageChannel.send(MessageBuilder.withPayload(message + count)
+                        .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
+                        .build());
+                count++;
+            }catch (Exception ex) {
+                System.out.println("Exception occurred >> " + ex);
+            }
+        }
     }
 }

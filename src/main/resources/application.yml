@@ -1,26 +1,4 @@
 spring:
   kafka:
-    consumer:
-      properties:
-        group.id: techforum-group
-        client.id: techforum-client
-  cloud:
-    stream:
-      kafka:
-        binder:
-          brokers: localhost:9092
-      bindings:
-        techforum-in:
-          destination: techforum-topic
-          contentType: application/json
-          startOffset: latest
-          autoCommitOffset: false
-          ackEachRecord: false
-          group: techforum-group
-          client: techforum-client
-        techforum-out:
-          destination: techforum-topic
-          contentType: application/json
-          #autoCommitOffset: false
-          group: techforum-group
-          client: techforum-client
+    producer:
+        acks: all
